@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Commands
   class DrawPixel
     def run(bitmap, x, y, colour)
@@ -5,7 +7,7 @@ module Commands
       y_converted = y.to_i
 
       if bitmap.nil?
-        puts "There is no image"
+        puts 'There is no image'
       elsif !bitmap.valid_coordinates?(x_converted, y_converted)
         puts "Invalid coordinates: (#{x}, #{y}), bitmap size: (#{bitmap.num_columns}, #{bitmap.num_rows})"
       elsif !bitmap.valid_colour?(colour)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Bitmap
   attr_reader :num_columns, :num_rows
 
@@ -6,7 +8,7 @@ class Bitmap
     @num_rows = num_rows
 
     @image = Array.new(num_rows) do
-      Array.new(num_columns, "O")
+      Array.new(num_columns, 'O')
     end
   end
 
@@ -23,7 +25,7 @@ class Bitmap
   end
 
   def to_s
-    @image.map { |row| row.join("") }.join("\n")
+    @image.map { |row| row.join('') }.join("\n")
   end
 
   def valid_coordinates?(x_coordinate, y_coordinate)

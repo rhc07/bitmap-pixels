@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Commands
   class VerticalLine
     def run(bitmap, x, y1, y2, colour)
@@ -6,7 +8,7 @@ module Commands
       y2_converted = y2.to_i
 
       if bitmap.nil?
-        puts "There is no image"
+        puts 'There is no image'
       elsif !bitmap.valid_coordinates?(x_converted, y1_converted)
         puts "Invalid coordinates: (#{x}, #{y1}), bitmap size: (#{bitmap.num_columns}, #{bitmap.num_rows})"
       elsif !bitmap.valid_coordinates?(x_converted, y2_converted)

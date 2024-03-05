@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Commands
   class HorizontalLine
     def run(bitmap, x1, x2, y, colour)
@@ -6,7 +8,7 @@ module Commands
       y_converted = y.to_i
 
       if bitmap.nil?
-        puts "There is no image"
+        puts 'There is no image'
       elsif !bitmap.valid_coordinates?(x1_converted, y_converted)
         puts "Invalid coordinates: (#{x1}, #{y}), bitmap size: (#{bitmap.num_columns}, #{bitmap.num_rows})"
       elsif !bitmap.valid_coordinates?(x2_converted, y_converted)

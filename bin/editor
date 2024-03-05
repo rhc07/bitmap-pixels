@@ -1,20 +1,22 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 require './lib/editor'
 
 Dir.entries('examples').sort.select do |filename|
   file = File.join('examples', filename)
-  if File.file? file
-    puts '-' * 30
-    puts "Running example: #{filename}"
-    puts ''
-    puts '# Content'
-    puts File.new(file).readlines
-    puts ''
-    puts '# Output'
-    Editor.new.run file
+  next unless File.file? file
 
-    puts ''
-    puts 'Press any key to continue'
-    STDIN.getc
-  end
+  puts '-' * 30
+  puts "Running example: #{filename}"
+  puts ''
+  puts '# Content'
+  puts File.new(file).readlines
+  puts ''
+  puts '# Output'
+  Editor.new.run file
+
+  puts ''
+  puts 'Press any key to continue'
+  $stdin.getc
 end

@@ -1,11 +1,13 @@
-require_relative "bitmap"
-Dir[File.join(__dir__, "commands", "*.rb")].each { |file| require file }
+# frozen_string_literal: true
+
+require_relative 'bitmap'
+Dir[File.join(__dir__, 'commands', '*.rb')].each { |file| require file }
 
 class Editor
   MAX_SIZE = 250
 
   def run(file)
-    return puts "please provide correct file" if file.nil? || !File.exist?(file)
+    return puts 'please provide correct file' if file.nil? || !File.exist?(file)
 
     execute_commands(File.open(file))
   end
@@ -14,40 +16,40 @@ class Editor
     bitmap = nil
 
     command_list.each do |line|
-      command, *arguments = line.split " "
+      command, *arguments = line.split ' '
       case command
-      when "S"
+      when 'S'
         # S - Shows the contents of the current image.
         Commands::Show.new.run(bitmap)
-      when "I"
+      when 'I'
         # I M N - Initialises a new image, with M columns and N rows, and all pixels set to 'O'
         columns, rows = arguments
 
         bitmap = initialize_bitmap(columns, rows)
-      when "L"
+      when 'L'
         # L X Y C - Colours the pixel (X,Y) with colour C.
         x, y, colour = arguments
 
         Commands::DrawPixel.new.run(bitmap, x, y, colour)
-      when "V"
+      when 'V'
         # V X Y1 Y2 C - Draws a vertical segment of colour C in column X between rows Y1 and Y2 (inclusive).
         x, y1, y2, colour = arguments
 
         Commands::VerticalLine.new.run(bitmap, x, y1, y2, colour)
-      when "H"
+      when 'H'
         # H X1 X2 Y C - Draws a horizontal segment of colour C in row Y between columns X1 and X2 (inclusive).
         x1, x2, y, colour = arguments
 
         Commands::HorizontalLine.new.run(bitmap, x1, x2, y, colour)
-      when "C"
+      when 'C'
         # C - Clears the colours, resetting all pixels back to 'O'.
         if bitmap.nil?
-          puts "There is no image"
+          puts 'There is no image'
         else
           bitmap = initialize_bitmap(bitmap.num_columns, bitmap.num_rows)
         end
       else
-        puts "Unrecognised command :("
+        puts 'Unrecognised command :('
       end
     end
   end
