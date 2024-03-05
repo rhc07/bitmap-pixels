@@ -7,8 +7,12 @@ class Bitmap
     @num_columns = num_columns
     @num_rows = num_rows
 
-    @image = Array.new(num_rows) do
-      Array.new(num_columns, 'O')
+    @image = initialize_image(num_rows, num_columns)
+  end
+
+  def initialize_image(num_rows, num_columns)
+    Array.new(num_rows) do
+      Array.new(num_columns, :O)
     end
   end
 
