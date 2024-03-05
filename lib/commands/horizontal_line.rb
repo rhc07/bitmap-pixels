@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require './lib/error_messages.rb'
+
 module Commands
   class HorizontalLine
     def run(bitmap, x1, x2, y, colour)
@@ -7,16 +9,16 @@ module Commands
       x2_converted = x2.to_i
       y_converted = y.to_i
 
-      if bitmap.nil?
-        puts 'There is no image'
-      elsif !bitmap.valid_coordinates?(x1_converted, y_converted)
-        puts "Invalid coordinates: (#{x1}, #{y}), bitmap size: (#{bitmap.num_columns}, #{bitmap.num_rows})"
+      return ErrorMessages.bitmap_not_found if bitmap.nil?
+
+      if !bitmap.valid_coordinates?(x1_converted, y_converted)
+        return ErrorMessages.invalid_coordinates(bitmap, x1, y)
       elsif !bitmap.valid_coordinates?(x2_converted, y_converted)
-        puts "Invalid coordinates: (#{x2}, #{y}), bitmap size: (#{bitmap.num_columns}, #{bitmap.num_rows})"
+        return ErrorMessages.invalid_coordinates(bitmap, x2, y)
       elsif x1_converted > x2_converted
-        puts "Invalid coordinates: X2 should be bigger than X1 x1=#{x1}, x2=#{x2}"
+        return ErrorMessages.incorrect_size(x1, x2)
       elsif !bitmap.valid_colour?(colour)
-        puts "Invalid colour: #{colour} only single uppercase characters are allowed"
+        return ErrorMessages.invalid_colour(colour)
       else
         bitmap.draw_horizontal_line(x1_converted, x2_converted, y_converted, colour)
       end

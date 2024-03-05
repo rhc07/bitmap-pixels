@@ -3,11 +3,11 @@
 module Commands
   class Show
     def run(bitmap)
-      if bitmap.nil?
-        puts 'There is no image'
-      else
-        puts bitmap
-      end
+
+      return ErrorMessages.bitmap_not_found if bitmap.nil?
+
+      puts bitmap
+
     end
   end
 end
