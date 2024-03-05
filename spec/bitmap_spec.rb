@@ -18,6 +18,12 @@ RSpec.describe Bitmap do
 
       it { is_expected.to eq "OO\nOO" }
     end
+
+    context 'with 3x2 bitmap' do
+      let(:bitmap) { described_class.new(3, 2) }
+
+      it { is_expected.to eq "OOO\nOOO" }
+    end
   end
 
   describe '#draw_pixel' do

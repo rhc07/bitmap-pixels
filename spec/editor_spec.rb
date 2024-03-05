@@ -134,5 +134,20 @@ RSpec.describe Editor do
         execute_commands
       end
     end
+
+    describe 'V command' do
+      let(:commands) { ["V 4 2 4 K" ]}
+      let(:command_runner) { double(:vertical_line) }
+
+      before do
+        allow(Commands::VerticalLine).to receive(:new).and_return(command_runner)
+      end
+
+      it 'should execute VerticalLine command' do
+        expect(command_runner).to receive(:run).with(nil, '4', '2', '4', 'K')
+
+        execute_commands
+      end
+    end
   end
 end
